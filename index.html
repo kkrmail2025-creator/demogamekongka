@@ -31,7 +31,6 @@
             padding: 10px;
         }
 
-        /* --- F11 Instruction Bar --- */
         #f11-hint {
             position: fixed;
             top: 10px;
@@ -46,7 +45,7 @@
             align-items: center;
             gap: 10px;
             border: 1px solid rgba(255,255,255,0.2);
-            pointer-events: none; /* ไม่ให้ขวางการคลิก */
+            pointer-events: none;
         }
 
         .f11-key {
@@ -58,7 +57,6 @@
             box-shadow: 0 2px 0 #bbb;
         }
 
-        /* --- Copyright Screen --- */
         #copyright-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #121212; color: white; display: flex; flex-direction: column;
@@ -75,7 +73,6 @@
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
         }
 
-        /* --- Main Game Container --- */
         #main-game {
             display: none;
             width: 100%;
@@ -155,7 +152,7 @@
         <div id="quiz-ui">
             <h3 id="question-text" style="min-height: 3rem;">?</h3>
             <div class="img-box animate__animated animate__fadeIn">
-                <img id="q-img" src="" alt="Question">
+                <img id="q-img" src="" alt="Question" onerror="this.src='https://placehold.co/400x250?text=Image+Not+Found'">
             </div>
             <div class="choice-grid" id="choice-area"></div>
         </div>
@@ -163,7 +160,7 @@
         <div id="result-ui" style="display: none;" class="animate__animated animate__fadeIn">
             <h2 id="feedback-title" style="margin-top: 0;">ผลลัพธ์</h2>
             <div class="img-box">
-                <img id="a-img" src="" alt="Answer">
+                <img id="a-img" src="" alt="Answer" onerror="this.src='https://placehold.co/400x250?text=Image+Not+Found'">
             </div>
             <div style="background: #f8faff; padding: 15px; border-radius: 20px; margin-bottom: 15px; border-left: 5px solid #667eea;">
                 <h3 id="career-title" style="margin: 0; color: #667eea;">อาชีพ</h3>
@@ -178,6 +175,7 @@
     </div>
 
     <script>
+        // แก้ไข Syntax Error ใน Array ข้อมูลตรงนี้
         const quizData = [
             { q: "ผู้ที่ทำประตูในสนามหญ้า", a: ["วิศวกร", "นักบอล", "คนเก็บขยะ", "ดิเอโก้ ช่างภาพ"], c: 1, name: "นักบอล", desc: "บุคคลในภาพคือ ชัยวัฒน์ ประทุมมา" },
             { q: "อาชีพอะไรที่คนนั่งทำงานในที่ว่าอำเภอ", a: ["หมอศัลยกรรม", "ข้าราชการ", "พยาบาล","เเม่ของรณวร"], c: 1, name: "ข้าราชการ", desc: "บุคคลในภาพคือ รณวร จันทร์พ่วง" },
@@ -185,8 +183,8 @@
             { q: "ใครเป็นผู้พิทักสันติราช", a: ["ตำรวจ", "คนสวน", "เอ็มปัปเป้", "โรนัลโด้"], c: 0, name: "ตำรวจ", desc: "เป็นอาชีพที่ดูเเลความสงบเเต่คนในรูปไม่น่าจะสงบ" },
             { q: "ใครไปกำจัดพวกเขมรที่มาเรื้อนเเถวชายเเดน", a: ["ตำรวจ", "ทนายความ", "ทหาร","พลเอก สรัยดึก"], c: 2, name: "ทหาร", desc: "ไทยนี้รักสงบ เเต่คนในรูปเลขที่ 21" },
             { q: "บุคคลที่มีหน้าที่ดูเเลหมู่บ้าน", a: ["ผู้ใหญ่บ้าน", "วิศวกร", "เจ้าหน้าที่หอคอย", "แอร์โฮสเตส"], c: 0, name: "ผู้ใหญ่บ้าน", desc: "คนในรูปยิงลูกหมดกล่องเเล้ว" },
-            { q: "คนที่บิด 120 เพื่อไปส่งคนในกรุงเทพ", a: ["เกษตรกร","ฝ่ายบุคคล", "วินมอไซค์" , "นิโคลา เทสลา"]c: 2, name: "วินมอไซน์", desc: "วัยรุ่นป้ายส้ม" },
-            { q: "นักเขียนโค้ดเพื่อสร้างนวัตกรรมแอปพลิเคชัน?", a: ["โปรแกรมเมอร์", "กราฟกราฟิกนักบัญชี", "ฝ่ายบุคคล"], c: 0, name: "โปรแกรมเมอร์ (Programmer)", desc: "พัฒนาซอฟต์แวร์ด้วยภาษาคอมพิวเตอร์" },
+            { q: "คนที่บิด 120 เพื่อไปส่งคนในกรุงเทพ", a: ["เกษตรกร","ฝ่ายบุคคล", "วินมอไซค์" , "นิโคลา เทสลา"], c: 2, name: "วินมอไซน์", desc: "วัยรุ่นป้ายส้ม" },
+            { q: "นักเขียนโค้ดเพื่อสร้างนวัตกรรมแอปพลิเคชัน?", a: ["โปรแกรมเมอร์", "กราฟิก", "นักบัญชี", "ฝ่ายบุคคล"], c: 0, name: "โปรแกรมเมอร์ (Programmer)", desc: "พัฒนาซอฟต์แวร์ด้วยภาษาคอมพิวเตอร์" },
             { q: "ใครเล่นเพลงที่ไพเราะในคลับ?", a: ["นักบิน", "นักดนตรี", "พยาบาล", "พนักงานต้อนรับ"], c: 1, name: "มือกีต้าร์", desc: "รณวร อีกเเล้ว" },
             { q: "รับงานยิงจากซุ้ม", a: ["นักเศรษฐศาสตร์", "นักการเงิน", "มือปืน", "พนักงานธนาคาร"], c: 2, name: "มือปืน", desc: "มือปืนคนนี้ 92เอฟเอสนะครับ" }
         ];
@@ -197,9 +195,8 @@
         const imgType = ".png"; 
 
         function startApp() {
-            // ซ่อนคำใบ้ F11 เมื่อเริ่มเกม
             const hint = document.getElementById('f11-hint');
-            hint.classList.replace('animate__fadeInDown', 'animate__fadeOutUp');
+            if(hint) hint.classList.replace('animate__fadeInDown', 'animate__fadeOutUp');
             
             document.getElementById('copyright-screen').classList.add('animate__fadeOut');
             setTimeout(() => {
@@ -260,7 +257,7 @@
         function finish() {
             document.getElementById('main-game').innerHTML = `
                 <div class="animate__animated animate__jackInTheBox">
-                    <h2 style="color:var(--primary);">ภารกิจเสร็จสิ้น!</h2>
+                    <h2 style="color:#764ba2;">ภารกิจเสร็จสิ้น!</h2>
                     <p style="margin-bottom:0;">คุณตอบถูกไปทั้งหมด</p>
                     <div style="font-size: 5rem; font-weight: bold; color: #764ba2; margin: 10px 0;">${score}/10</div>
                     <p>พัฒนาโดย <strong>Jobpy Kingcode</strong><br><small>KingcodeTEAM Project</small></p>
@@ -271,4 +268,3 @@
     </script>
 </body>
 </html>
-
